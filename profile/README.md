@@ -1,12 +1,83 @@
-## Hi there 👋
+# MagNavi  
+지구 자기장과 스마트폰 센서를 활용한 초정밀 실내 내비게이션 시스템  
+<br>
 
-<!--
+## 📝 프로젝트 소개  
+실내 공간에서는 GPS 신호 수신이 불가능하여 위치 기반 서비스(LBS)의 제공에 제약이 있습니다. 기존 Wi-Fi, BLE 비콘 기반 실내 측위 기술은 추가 인프라 설치와 유지 비용이 크고, 전파 신호 특성상 3~20m 수준의 큰 오차가 발생하는 한계가 있습니다.  
 
-**Here are some ideas to get you started:**
+**MagNavi**는 스마트폰 내장 센서(자기장, 가속도, 자이로스코프 등)만을 활용하여 지구 자기장의 고유 분포 패턴을 학습하고, 보행자 추측 항법(PDR)과 딥러닝 기반 모델을 결합함으로써 **1m 이하 수준의 실내 측위 정확도**를 목표로 합니다.  
 
-🙋‍♀️ A short introduction - what is your organization all about?
-🌈 Contribution guidelines - how can the community get involved?
-👩‍💻 Useful resources - where can the community find your docs? Is there anything else the community should know?
-🍿 Fun facts - what does your team eat for breakfast?
-🧙 Remember, you can do mighty things with the power of [Markdown](https://docs.github.com/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
--->
+또한 교통약자를 포함한 다양한 사용자 유형을 고려하여, 휠체어 사용자에게는 계단을 배제한 경로를, 저시력 사용자에게는 색상 및 음성 안내 최적화 기능을 제공하는 등 **사용자 맞춤형 실내 내비게이션**을 구현합니다.  
+<br>
+
+## 📆 개발 기간  
+1차. *2025.03 – 2024.06* : 센서 데이터 수집 및 MLP 기반 초기 모델 구현  
+2차. *2025.09 – 현재* : PDR 기반 이동 보정 알고리즘 및 실시간 위치 추정 앱 개발    
+<br>
+
+## 🧑‍💻 팀 구성  
+- 백
+- 프론트
+<br>
+
+## ⚙️ 개발 환경  
+- **언어** : `Python 3.10+`, `Dart (Flutter)`, `Kotlin (Jetpack Compose)`  
+- **IDE** : `VS Code`, `Android Studio`  
+- **Framework / Library** : `PyTorch`, `scikit-learn`, `FastAPI`, `Flutter`, `Jetpack Compose`  
+- **Database** : SQLite (POI 및 공간 데이터 관리)  
+- **협업 도구** : GitHub, Figma  
+<br>
+
+## 📌 주요 기능  
+
+### 1. 지자기 기반 실내 측위  
+- 스마트폰 자기장 센서(Mag_X, Mag_Y, Mag_Z) 및 오리엔테이션(Ori_X, Ori_Y, Ori_Z) 데이터 활용  
+- Fingerprint + MLP 분류 모델 기반 초기 위치 추정 (정확도 최대 60%)  
+- LSTM/RNN 기반 시퀀스 데이터 학습을 통한 초정밀 위치 추정  
+
+### 2. PDR (Pedestrian Dead Reckoning) 보정  
+- 가속도/자이로스코프 기반 걸음 수 검출 및 보폭 추정  
+- 방향 보정(자기장·자이로 융합) 및 Δx, Δy 이동 거리 산출  
+- 위치 예측 모델의 입력 피처로 활용  
+
+### 3. 교통약자 맞춤형 내비게이션  
+- 휠체어 사용자 : 계단 배제, 직선 구간 위주 안내  
+- 저시력 사용자 : 다크/화이트 모드 지원, 음성 안내 제공  
+- 일반 사용자 : 최단 경로 기반 실시간 길찾기  
+
+### 4. 실내 맵 및 경로 안내  
+- CAD 도면 및 현장 답사 기반 POI 데이터베이스 구축  
+- A* 알고리즘 기반 최단 경로 탐색  
+- Flutter/Jetpack Compose 기반 모바일 UI 구현  
+<br>
+
+## 📊 성능 및 결과  
+- Wi-Fi/BLE 방식 대비 **5~10배 높은 정확도** 달성 (평균 오차 약 0.7m, KOLAS 시험 인증)  
+- 교통약자 이동 시간 개선 효과 :  
+  - 휠체어 사용자 **53% 단축**  
+  - 저시력 사용자 **47% 단축**  
+- 초기 위치 인식 속도 : 4걸음 이내 위치 고정, 평균 오차 66cm  
+<br>
+
+## 📐 시스템 구조도  
+아래는 MagNavi 시스템 구조 예시입니다.  
+
+![System Diagram](./images/system_diagram.png)  
+*Fig.1 시스템 아키텍처*  
+
+<br>
+
+## 📱 시연 화면  
+앱 실행 화면 및 시연 GIF는 아래와 같습니다.  
+
+![Demo Screenshot](./images/demo_screenshot.png)  
+*Fig.2 앱 실행 화면*  
+
+![Demo GIF](./images/demo_walkthrough.gif)  
+*Fig.3 실시간 길안내 시연*  
+<br>
+
+## ✨ 기대 효과  
+- **추가 인프라 설치 불필요** → 저비용·고효율 실내 내비게이션 구현  
+- 병원, 지하철 역사, 공항, 쇼핑몰 등 **대형 복합 공간 적용 가능**  
+- 교통약자 이동 편의성 증대 및 **스마트 시티 서비스 연계 가능성 확보**  
