@@ -65,6 +65,113 @@
 ![System Diagram](./images/system_diagram.png)  
 *Fig.1 시스템 아키텍처*  
 
+
+
+[MagNavi ERD]
+![MagNavi DB 구조](https://github.com/midas-capston-design/back_fastapi/blob/main/image/magnavi_db.png?raw=true)
+전체 테이블 요약
+
+users: 사용자 계정 정보를 저장하는 테이블
+
+favorites: 각 사용자의 즐겨찾기 정보를 저장하는 테이블
+
+predicted_locations: 실내 위치 예측 모델이 인식하는 장소 정보를 저장하는 테이블
+
+outdoor_place: 외부 장소의 상세 정보를 저장하는 테이블
+
+## 1. `users`
+
+> 사용자 계정 정보를 저장하는 테이블입니다. 애플리케이션의 인증 및 사용자 식별에 사용됩니다.
+
+-   **`id`** (`INTEGER`, **PK**, `AUTO_INCREMENT`)
+    -   사용자의 고유 식별 번호 (시스템 내부용).
+-   **`userId`** (`VARCHAR(50)`, **UNIQUE**, `NOT NULL`)
+    -   사용자가 로그인 시 사용하는 고유 아이디.
+-   **`userName`** (`VARCHAR(50)`, `NOT NULL`)
+    -   사용자의 이름 또는 닉네임.
+-   **`email`** (`VARCHAR(100)`, **UNIQUE**, `NOT NULL`)
+    -   사용자의 이메일 주소.
+-   **`phone_number`** (`VARCHAR(20)`, `NOT NULL`)
+    -   사용자의 전화번호.
+-   **`hashed_password`** (`VARCHAR(255)`, `NOT NULL`)
+    -   보안을 위해 bcrypt로 암호화된 사용자 비밀번호.
+
+---
+
+## 2. `favorites`
+
+> 각 사용자가 등록한 즐겨찾기 목록을 저장합니다. `users` 테이블과 1:N 관계를 가집니다.
+
+-   **`id`** (`VARCHAR(255)`, **PK**)
+    -   즐겨찾기 항목의 고유 ID (클라이언트에서 생성).
+-   **`user_id`** (`INTEGER`, **FK**, `NOT NULL`)
+    -   이 즐겨찾기를 소유한 사용자의 `id` (`users` 테이블 참조).
+-   **`type`** (`ENUM`, `NOT NULL`)
+    -   즐겨찾기의 종류. (`'place'`, `'bus'`, `'busStop'`)
+-   **`name`** (`VARCHAR(255)`, `NOT NULL`)
+    -   즐겨찾기에 부여된 이름 (예: "우리집", "814번 버스").
+-   **`created_at`** (`TIMESTAMP`, `DEFAULT CURRENT_TIMESTAMP`)
+    -   즐겨찾기 생성 일시.
+-   **`address`** (`VARCHAR(255)`)
+    -   `type`이 `'place'`일 경우의 주소.
+-   **`place_category`** (`ENUM`)
+    -   `type`이 `'place'`일 경우의 카테고리. (`'home'`, `'work'`, `'etc'`)
+-   **`bus_number`** (`VARCHAR(50)`)
+    -   `type`이 `'bus'`일 경우의 버스 번호.
+-   **`station_name`** (`VARCHAR(255)`)
+    -   `type`이 `'busStop'`일 경우의 정류장 이름.
+-   **`station_id`** (`VARCHAR(255)`)
+    -   `type`이 `'busStop'`일 경우의 정류장 고유 ID.
+
+---
+
+## 3. `predicted_locations`
+
+> 실내 위치 예측 모델이 반환하는 각 위치 ID에 대한 상세 정보를 저장하는 마스터 테이블입니다.
+
+-   **`id`** (`VARCHAR(50)`, **PK**, `NOT NULL`)
+    -   위치의 고유 ID (모델의 예측 결과와 일치하는 문자열).
+-   **`location_name`** (`VARCHAR(255)`, **UNIQUE**)
+    -   위치의 이름 (예: "3층 로비", "서편 휴게실").
+-   **`description`** (`TEXT`)
+    -   위치에 대한 상세 설명.
+-   **`floor`** (`INTEGER`, `NOT NULL`, `DEFAULT 3`)
+    -   해당 위치의 층수.
+-   **`address`** (`VARCHAR(255)`, `NOT NULL`)
+    -   건물 주소 (예: "영남대학교 IT관").
+
+---
+
+## 4. `outdoor_place`
+
+> 외부 장소에 대한 지리 정보 및 상세 정보를 저장합니다.
+
+-   **`place_id`** (`VARCHAR(50)`, **PK**)
+    -   장소의 고유 ID.
+-   **`name`** (`VARCHAR(200)`, `NOT NULL`)
+    -   장소의 이름.
+-   **`category`** (`VARCHAR(100)`)
+    -   장소의 카테고리 (예: "공원", "카페", "관광지").
+-   **`address`** (`VARCHAR(255)`)
+    -   장소의 주소.
+-   **`lon`** (`DOUBLE`, `NOT NULL`)
+    -   경도 (Longitude, X 좌표).
+-   **`lat`** (`DOUBLE`, `NOT NULL`)
+    -   위도 (Latitude, Y 좌표).
+-   **`has_facility`** (`BOOLEAN`, `DEFAULT FALSE`)
+    -   주요 편의시설의 존재 여부.
+-   **`facility_name`** (`VARCHAR(150)`)
+    -   편의시설의 이름 (예: "수성못 관광안내소").
+-   **`facility_type`** (`VARCHAR(100)`)
+    -   편의시설의 종류 (예: "화장실", "안내소").
+-   **`facility_location`** (`VARCHAR(255)`)
+    -   편의시설의 상세 위치 설명.
+-   **`is_accessible`** (`BOOLEAN`, `DEFAULT FALSE`)
+    -   교통약자 접근 가능 여부.
+
+
+
+
 <br>
 
 ## 📱 시연 화면  
