@@ -1,6 +1,8 @@
 # ℹ️ MagNavi  
 지구 자기장과 스마트폰 센서를 활용한 초정밀 실내 내비게이션 시스템
+
 <br>
+
 <img width="1280" height="720" alt="슬라이드1" src="https://github.com/user-attachments/assets/b93510ca-e492-4b41-8f0d-0e4472d5ebc6" />
 
 <br>
