@@ -1,8 +1,12 @@
 # MagNavi  
-지구 자기장과 스마트폰 센서를 활용한 초정밀 실내 내비게이션 시스템  
+지구 자기장과 스마트폰 센서를 활용한 초정밀 실내 내비게이션 시스템
+<img width="1280" height="720" alt="슬라이드1" src="https://github.com/user-attachments/assets/b93510ca-e492-4b41-8f0d-0e4472d5ebc6" />
+
 <br>
 
 ## 📝 프로젝트 소개  
+<img width="1280" height="720" alt="슬라이드3" src="https://github.com/user-attachments/assets/7393084d-1d82-4faf-96db-c7e0732d67da" /><br>
+
 실내 공간에서는 GPS 신호 수신이 불가능하여 위치 기반 서비스(LBS)의 제공에 제약이 있습니다. 기존 Wi-Fi, BLE 비콘 기반 실내 측위 기술은 추가 인프라 설치와 유지 비용이 크고, 전파 신호 특성상 3~20m 수준의 큰 오차가 발생하는 한계가 있습니다.  
 
 **MagNavi**는 스마트폰 내장 센서(자기장, 가속도, 자이로스코프 등)만을 활용하여 지구 자기장의 고유 분포 패턴을 학습하고, 보행자 추측 항법(PDR)과 딥러닝 기반 모델을 결합함으로써 **1m 이하 수준의 실내 측위 정확도**를 목표로 합니다.  
@@ -16,8 +20,9 @@
 <br>
 
 ## 🧑‍💻 팀 구성  
-- 백
-- 프론트
+- 백 : 윤찬익, 박윤호
+- 프론트 : 류효정, 이재훈, 이준규
+- AI : 류효정, 박윤호, 염수민
 <br>
 
 ## ⚙️ 개발 환경  
@@ -174,7 +179,7 @@ outdoor_place: 외부 장소의 상세 정보를 저장하는 테이블
 
 <br>
 
-## 📱 시연 화면  
+## 🎬 시연 화면  
 앱 실행 화면 및 시연 GIF는 아래와 같습니다.  
 
 ![Demo Screenshot](./images/demo_screenshot.png)  
@@ -183,6 +188,9 @@ outdoor_place: 외부 장소의 상세 정보를 저장하는 테이블
 ![Demo GIF](./images/demo_walkthrough.gif)  
 *Fig.3 실시간 길안내 시연*  
 <br>
+
+## 📱 UI 구성  
+<img width="1280" height="720" alt="슬라이드4" src="https://github.com/user-attachments/assets/9052cb10-b1bd-467e-a447-5e1a753293c9" /><br>
 
 ## ✨ 기대 효과  
 - **추가 인프라 설치 불필요** → 저비용·고효율 실내 내비게이션 구현  
